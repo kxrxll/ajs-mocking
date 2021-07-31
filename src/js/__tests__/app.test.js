@@ -1,11 +1,13 @@
 import getLevel from '../app';
+import fetchData from '../http';
 
-jest.mock('../src/js/http');
+jest.mock('../http');
 beforeEach(() => {
   jest.resetAllMocks();
 });
 
 test('should fetch', () => {
-  const result = getLevel([1, 2, 3]);
-  expect(result).toBe(6);
+  fetchData.mockReturnValue(JSON.stringify({}));
+  getLevel(1);
+  expect(fetchData).toBeCalledWith('https://server/user/1');
 });
